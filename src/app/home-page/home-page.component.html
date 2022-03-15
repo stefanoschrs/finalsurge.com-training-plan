@@ -1,0 +1,52 @@
+<section class="section">
+    <h1 class="title has-text-centered">Training Plan</h1>
+</section>
+
+<section class="section">
+    <div class="columns is-flex-wrap-wrap">
+        <div class="column is-half">
+            <label class="label" for="startDate">
+                Start Date:
+                <input id="startDate" class="input" type="date" name="startDate"
+                       [ngModel]="startDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="onStartDateChange($event)"
+                *ngIf="!locked"/>
+                <input [id]="locked ? 'startDate' : 'startDate2'" class="input" type="date" name="startDate"
+                       disabled="disabled" [value]="startDate | date:'yyyy-MM-dd'"
+                *ngIf="locked"/>
+            </label>
+        </div>
+
+        <div class="column is-half">
+            <label class="label" for="endDate">
+                End Date:
+                <input id="endDate" class="input" type="date" name="endDate"
+                       disabled="disabled" [value]="endDate | date:'yyyy-MM-dd'"/>
+            </label>
+
+        </div>
+
+        <div class="column is-half">
+            <label class="label" for="planName">
+                Plan:
+                <input id="planName" class="input" type="text" name="planName"
+                       disabled="disabled" [value]="'McMillan Running: 50 Mile - 100K Training Plan Level 3'"/>
+            </label>
+        </div>
+    </div>
+    <u class="is-pulled-right" *ngIf="locked" (click)="locked = false">unlock</u>
+</section>
+
+<section class="section">
+    <div class="box day" #toggle [attr.toggle]="0" [ngClass]="getDayClass(day.workout_date)" *ngFor="let day of days">
+        <h2 class="sub">
+            <strong>{{day.name}}</strong>&nbsp;<small class="is-small">{{day.workout_date | date:'yyyy-MM-dd'}}</small>
+        </h2>
+
+        <p class="text description description-short"
+           *ngIf="toggle.getAttribute('toggle') === '0'">{{day.description}}</p>
+        <p class="text description description-long"
+           *ngIf="toggle.getAttribute('toggle') === '1'">{{day.description}}</p>
+        <button class="button toggle-button" (click)="toggle.setAttribute('toggle', toggle.getAttribute('toggle') === '0' ? '1' : '0')">+</button>
+    </div>
+</section>
