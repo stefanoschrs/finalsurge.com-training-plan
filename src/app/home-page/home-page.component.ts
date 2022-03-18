@@ -57,7 +57,7 @@ export class HomePageComponent implements OnInit {
     return {
       'is-past': workoutDate.isBefore(this.today, 'day'),
       'is-today': this.today.isSame(workoutDate, 'day'),
-      'is-type-recovery': day.name.contains('Recovery Day'),
+      'is-type-recovery': day.name.includes('Recovery Day'),
     }
   }
 
