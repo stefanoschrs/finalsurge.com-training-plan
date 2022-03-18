@@ -11,6 +11,10 @@
     background-color: rgba(241, 89, 74, .1);
   }
 
+  &.is-type-recovery {
+    background-color: rgba(89, 74, 241, .1);
+  }
+
   .description {
     $lh: 1.25rem;
     $lines: 4;

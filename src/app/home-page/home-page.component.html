@@ -38,7 +38,7 @@
 </section>
 
 <section class="section">
-    <div class="box day" #toggle [attr.toggle]="0" [ngClass]="getDayClass(day.workout_date)" *ngFor="let day of days">
+    <div class="box day" #toggle [attr.toggle]="0" [ngClass]="getDayClass(day)" *ngFor="let day of days">
         <h2 class="sub">
             <strong>{{day.name}}</strong>&nbsp;<small class="is-small">{{day.workout_date | date:'yyyy-MM-dd'}}</small>
         </h2>

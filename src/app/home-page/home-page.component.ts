@@ -52,10 +52,12 @@ export class HomePageComponent implements OnInit {
     this.processPlan()
   }
 
-  getDayClass (date: any) {
+  getDayClass (day: any) {
+    const workoutDate = moment(day.workout_date)
     return {
-      'is-past': moment(date).isBefore(this.today, 'day'),
-      'is-today': this.today.isSame(moment(date), 'day'),
+      'is-past': workoutDate.isBefore(this.today, 'day'),
+      'is-today': this.today.isSame(workoutDate, 'day'),
+      'is-type-recovery': day.name.contains('Recovery Day'),
     }
   }
 
