@@ -5,14 +5,14 @@
 
   &.is-past {
     background-color: rgba(89, 241, 74, .1);
+
+    &.is-type-recovery {
+      background-color: rgba(89, 74, 241, .1);
+    }
   }
 
   &.is-today {
     background-color: rgba(241, 89, 74, .1);
-  }
-
-  &.is-type-recovery {
-    background-color: rgba(89, 74, 241, .1);
   }
 
   .description {

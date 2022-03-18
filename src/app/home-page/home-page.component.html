@@ -10,10 +10,10 @@
                 <input id="startDate" class="input" type="date" name="startDate"
                        [ngModel]="startDate | date:'yyyy-MM-dd'"
                        (ngModelChange)="onStartDateChange($event)"
-                *ngIf="!locked"/>
+                       *ngIf="!locked"/>
                 <input [id]="locked ? 'startDate' : 'startDate2'" class="input" type="date" name="startDate"
                        disabled="disabled" [value]="startDate | date:'yyyy-MM-dd'"
-                *ngIf="locked"/>
+                       *ngIf="locked"/>
             </label>
         </div>
 
@@ -43,10 +43,30 @@
             <strong>{{day.name}}</strong>&nbsp;<small class="is-small">{{day.workout_date | date:'yyyy-MM-dd'}}</small>
         </h2>
 
-        <p class="text description description-short"
-           *ngIf="toggle.getAttribute('toggle') === '0'">{{day.description}}</p>
-        <p class="text description description-long"
-           *ngIf="toggle.getAttribute('toggle') === '1'">{{day.description}}</p>
-        <button class="button toggle-button" (click)="toggle.setAttribute('toggle', toggle.getAttribute('toggle') === '0' ? '1' : '0')">+</button>
-    </div>
+        <div class="description description-short" *ngIf="toggle.getAttribute('toggle') === '0'">
+            <p class="text">{{day.description}}</p>
+        </div>
+        <div class="description description-long" *ngIf="toggle.getAttribute('toggle') === '1'">
+            <p class="text">{{day.description}}</p>
+
+            <div class="activities" [class.mt-3]="day.Activities?.length">
+                <div *ngFor="let activity of day.Activities">
+                    <p class="text">
+                        <strong>Type:</strong>&nbsp;<span>{{activity.activity_type_name}}</span>
+                    </p>
+                    <p class="text" *ngIf="activity.planned_duration">
+                        <strong>Duration:</strong>&nbsp;<span>{{activity.planned_duration | duration}}</span>
+                    </p>
+                    <p class="text" *ngIf="activity.planned_pace_display">
+                        <strong>Pace:</strong>&nbsp;<span>{{activity.planned_pace_display}}{{activity.planned_pace_display_type}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+            <!-- Float -->
+            <button class="button toggle-button"
+                    (click)="toggle.setAttribute('toggle', toggle.getAttribute('toggle') === '0' ? '1' : '0')">+
+            </button>
+        </div>
 </section>

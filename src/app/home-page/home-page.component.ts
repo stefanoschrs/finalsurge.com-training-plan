@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import moment from 'moment'
 
 import data from '../../assets/50_Mile_-_100K_Training_Plan_Level_3.json'
+import { RootObject, TrainingDay } from '../../interfaces'
 
 const localStorageStartDateKey = 'running-calendar_start-date'
 
@@ -12,7 +13,7 @@ const localStorageStartDateKey = 'running-calendar_start-date'
   styles: []
 })
 export class HomePageComponent implements OnInit {
-  days!: any[]
+  days!: TrainingDay[]
 
   startDate: Date
   endDate!: Date
@@ -62,7 +63,7 @@ export class HomePageComponent implements OnInit {
   }
 
   private processPlan () {
-    const planData = data.data
+    const planData = (data as RootObject).data
     const numberOfWeeks = planData[0].plan_instance_info.number_of_weeks
 
     this.endDate = moment(this.startDate).add(numberOfWeeks, 'weeks').toDate()
