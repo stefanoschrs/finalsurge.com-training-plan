@@ -21,7 +21,12 @@
             <label class="label" for="endDate">
                 End Date:
                 <input id="endDate" class="input" type="date" name="endDate"
-                       disabled="disabled" [value]="endDate | date:'yyyy-MM-dd'"/>
+                       [ngModel]="endDate | date:'yyyy-MM-dd'"
+                       (ngModelChange)="onEndDateChange($event)"
+                       *ngIf="!locked"/>
+                <input [id]="locked ? 'endDate' : 'endDate2'" class="input" type="date" name="endDate"
+                       disabled="disabled" [value]="endDate | date:'yyyy-MM-dd'"
+                       *ngIf="locked"/>
             </label>
 
         </div>
@@ -29,8 +34,12 @@
         <div class="column is-half">
             <label class="label" for="planName">
                 Plan:
-                <input id="planName" class="input" type="text" name="planName"
-                       disabled="disabled" [value]="'McMillan Running: 50 Mile - 100K Training Plan Level 3'"/>
+                <select name="planName" id="planName" class="select input" [disabled]="locked" (change)="updatePlan($event)">
+                    <option value="" disabled>Select a plan</option>
+                    <option [value]="plan.key" *ngFor="let plan of plans">
+                        {{plan.value}}
+                    </option>
+                </select>
             </label>
         </div>
     </div>
@@ -40,7 +49,7 @@
 <section class="section">
     <div class="box day" #toggle [attr.toggle]="0" [ngClass]="getDayClass(day)" *ngFor="let day of days">
         <h2 class="sub">
-            <strong>{{day.name}}</strong>&nbsp;<small class="is-small">{{day.workout_date | date:'yyyy-MM-dd'}}</small>
+            <strong>{{day.name}}</strong>&nbsp;<small class="is-small">{{day.workout_date | date:'EEEE yyyy-MM-dd'}}</small>
         </h2>
 
         <div class="description description-short" *ngIf="toggle.getAttribute('toggle') === '0'">
